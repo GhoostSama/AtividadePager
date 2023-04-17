@@ -14,17 +14,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
+        getSupportActionBar().hide();
         tab = findViewById(R.id.tab);
         pager = findViewById(R.id.pager);
         FragmentManager fm = getSupportFragmentManager();
         Adaptador adaptador = new Adaptador(fm, getLifecycle());
         pager.setAdapter(adaptador);
-        tab.addTab(tab.newTab().setText("Nome completo"));
-        tab.addTab(tab.newTab().setText("Turma"));
+        tab.addTab(tab.newTab().setText("Calculadora"));
+        tab.addTab(tab.newTab().setText("Jogo Random"));
         tab.addTab(tab.newTab().setText("Localização"));
-        tab.addTab(tab.newTab().setText("Time"));
         tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

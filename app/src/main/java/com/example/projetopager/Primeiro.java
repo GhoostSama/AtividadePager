@@ -7,6 +7,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,6 +23,9 @@ public class Primeiro extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    EditText hF, mF, mI, hI;
+    TextView rM, rH;
+    Button soma, sub;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -59,6 +66,73 @@ public class Primeiro extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_primeiro, container, false);
+        View v = inflater.inflate(R.layout.fragment_primeiro, container, false);
+        hF = v.findViewById(R.id.hf);
+        hI = v.findViewById(R.id.hi);
+        mF = v.findViewById(R.id.mf);
+        mI = v.findViewById(R.id.mi);
+        rH = v.findViewById(R.id.rh);
+        rM = v.findViewById(R.id.rm);
+        soma = v.findViewById(R.id.btnSoma);
+        sub = v.findViewById(R.id.btnSub);
+
+        soma.setOnClickListener(click -> {soma();});
+        sub.setOnClickListener(click -> {subtracao();});
+
+        return v;
     }
+
+    public void soma(){
+        try {
+            int rm = 0;
+            int rh = 0;
+            int mi = Integer.parseInt(mI.getText().toString());
+            int mf = Integer.parseInt(mF.getText().toString());
+            int hi = Integer.parseInt(hI.getText().toString());
+            int hf = Integer.parseInt(hF.getText().toString());
+            rm = mi + mf;
+            rh = hi + hf;
+
+            while (rm > 59) {
+                rm -= 60;
+                rh++;
+            }
+
+            String mrm = String.valueOf(rm);
+            String mrh = String.valueOf(rh);
+            rM.setText(mrm);
+            rH.setText(mrh);
+        }catch(Exception e){
+            Toast.makeText(getContext(),"Campo vazio",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void subtracao(){
+        try{
+            int rh = 0;
+            int rm = 0;
+            int mi = Integer.parseInt(mI.getText().toString());
+            int mf = Integer.parseInt(mF.getText().toString());
+            int hi = Integer.parseInt(hI.getText().toString());
+            int hf = Integer.parseInt(hF.getText().toString());
+
+            int minIn = (hi*60)+mi;
+            int minFn = (hf*60)+mf;
+            rm = Math.abs(minIn - minFn);
+
+            while (rm > 59) {
+                rm -= 60;
+                rh++;
+            }
+
+            String mrm = String.valueOf(rm);
+            String mrh = String.valueOf(rh);
+            rM.setText(mrm);
+            rH.setText(mrh);
+        }
+        catch(Exception e){
+            Toast.makeText(getContext(),"Campo vazio",Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
